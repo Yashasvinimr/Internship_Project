@@ -103,5 +103,50 @@ CREATE TABLE messages (
     FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
 );
+ALTER TABLE events ADD COLUMN visibility ENUM('public', 'members_only') DEFAULT 'public';
 
 show tables;
+select * from users;
+ALTER TABLE users 
+DROP COLUMN department,
+ADD COLUMN department VARCHAR(50) GENERATED ALWAYS AS 
+(REGEXP_REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(email, '@', 1), '.', -1), '[0-9]', '')) STORED;
+
+-- Update club_members
+ALTER TABLE club_members DROP FOREIGN KEY club_members_ibfk_1;
+ALTER TABLE club_members ADD CONSTRAINT club_members_fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+
+-- Update event_registrations
+ALTER TABLE event_registrations DROP FOREIGN KEY event_registrations_ibfk_1;
+ALTER TABLE event_registrations ADD CONSTRAINT event_registrations_fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+
+-- Update event_posts
+ALTER TABLE event_posts DROP FOREIGN KEY event_posts_ibfk_1;
+ALTER TABLE event_posts ADD CONSTRAINT event_posts_fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+
+-- Update event_post_comments
+ALTER TABLE event_post_comments DROP FOREIGN KEY event_post_comments_ibfk_2;
+ALTER TABLE event_post_comments ADD CONSTRAINT event_post_comments_fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+
+-- Update followers
+ALTER TABLE followers DROP FOREIGN KEY followers_ibfk_1;
+ALTER TABLE followers ADD CONSTRAINT followers_fk_follower FOREIGN KEY (follower_id) REFERENCES users(id) ON DELETE CASCADE;
+ALTER TABLE followers DROP FOREIGN KEY followers_ibfk_2;
+ALTER TABLE followers ADD CONSTRAINT followers_fk_following FOREIGN KEY (following_id) REFERENCES users(id) ON DELETE CASCADE;
+
+-- Update messages
+ALTER TABLE messages DROP FOREIGN KEY messages_ibfk_1;
+ALTER TABLE messages ADD CONSTRAINT messages_fk_sender FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE;
+ALTER TABLE messages DROP FOREIGN KEY messages_ibfk_2;
+ALTER TABLE messages ADD CONSTRAINT messages_fk_receiver FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE;
+
+DELETE FROM users WHERE id = 5;
+show tables;
+select * from club_members;
+DESC users;
+DESC club_members;
+ALTER TABLE club_members MODIFY COLUMN user_id INT;
+
+
+desc clubs;
+select * from clubs;

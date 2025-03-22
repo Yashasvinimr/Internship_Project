@@ -23,12 +23,14 @@ com\example\clubportal\dto\LoginRequest.class
 com\example\clubportal\repository\UserRepository.class
 com\example\clubportal\exceptions\ResourceNotFoundException.class
 com\example\clubportal\service\EventService.class
+com\example\clubportal\dto\ClubDTO.class
 com\example\clubportal\controller\PostController.class
 com\example\clubportal\exceptions\UserNotFoundException.class
 com\example\clubportal\exceptions\InvalidEmailException.class
 com\example\clubportal\service\PaymentService.class
 com\example\clubportal\controller\MembershipController.class
 com\example\clubportal\controller\UserController.class
+com\example\clubportal\repository\ClubMemberRepository.class
 com\example\clubportal\entity\Event.class
 com\example\clubportal\exceptions\ClubNotFoundException.class
 com\example\clubportal\repository\ClubRepository.class

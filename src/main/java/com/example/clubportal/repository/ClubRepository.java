@@ -5,9 +5,9 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ClubRepository extends JpaRepository<Club, Long> {
-    @EntityGraph(attributePaths = "members")
-    Club findByName(String name); // Fetch club by name
-
+    Optional<Club> findByName(String name);
 }

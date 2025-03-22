@@ -56,5 +56,14 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
+    @ExceptionHandler(ClubNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleClubNotFound(ClubNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "Club Not Found");
+        error.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+
 }
 

@@ -1,6 +1,7 @@
 package com.example.clubportal.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -53,8 +54,8 @@ public class User {
     @Column(name = "active", columnDefinition = "BOOLEAN DEFAULT true")
     private boolean active = true;
 
-    @ManyToMany(mappedBy = "members")
-    private Set<Club> clubs;
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore // 🔥 Prevents club memberships from appearing in User JSON
+    private Set<ClubMember> clubMemberships;
     // Getters and Setters
 }

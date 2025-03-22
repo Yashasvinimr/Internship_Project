@@ -1,5 +1,6 @@
 package com.example.clubportal.controller;
 
+import com.example.clubportal.dto.ClubDTO;
 import com.example.clubportal.entity.Club;
 import com.example.clubportal.service.ClubService;
 import lombok.RequiredArgsConstructor;
@@ -7,44 +8,62 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/clubs")
+@RequestMapping("/clubs")
 @RequiredArgsConstructor
 public class ClubController {
     private final ClubService clubService;
 
-    // ✅ Get all clubs
     @GetMapping
-    public ResponseEntity<List<Club>> getAllClubs() {
-        return ResponseEntity.ok(clubService.getAllClubs());
+    public ResponseEntity<List<ClubDTO>> getAllClubs() {
+        List<ClubDTO> clubs = clubService.getAllClubs().stream()
+                .map(ClubDTO::new) // Convert to DTO
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(clubs);
     }
 
-    // ✅ Get club by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Club> getClubById(@PathVariable Long id) {
-        return ResponseEntity.ok(clubService.getClubById(id));
+    public ResponseEntity<ClubDTO> getClubById(@PathVariable Long id) {
+        Club club = clubService.getClubById(id);
+        return ResponseEntity.ok(new ClubDTO(club));
     }
 
-    // ✅ Create a new club
+    @GetMapping("/name/{name}")
+    public ResponseEntity<ClubDTO> getClubByName(@PathVariable String name) {
+        Club club = clubService.getClubByName(name);
+        return ResponseEntity.ok(new ClubDTO(club));
+    }
+
     @PostMapping
-    public ResponseEntity<Club> createClub(@RequestBody Club club) {
-        return ResponseEntity.ok(clubService.saveClub(club));
+    public ResponseEntity<ClubDTO> createClub(@RequestBody Club club) {
+        Club newClub = clubService.createClub(club);
+        return ResponseEntity.ok(new ClubDTO(newClub));
     }
 
-    // ✅ Delete a club
+    @PostMapping("/{clubId}/coordinators")
+    public ResponseEntity<ClubDTO> addCoordinators(@PathVariable Long clubId, @RequestBody Set<Long> userIds) {
+        Club updatedClub = clubService.addCoordinators(clubId, userIds);
+        return ResponseEntity.ok(new ClubDTO(updatedClub));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ClubDTO> updateClub(@PathVariable Long id, @RequestBody Club updatedClub) {
+        Club club = clubService.updateClub(id, updatedClub);
+        return ResponseEntity.ok(new ClubDTO(club));
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteClub(@PathVariable Long id) {
         clubService.deleteClub(id);
-        return ResponseEntity.ok("Club deleted successfully.");
+        return ResponseEntity.ok("Club deleted successfully!");
     }
 
-
-        @PostMapping("/{clubId}/join/{userId}")
-        public ResponseEntity<String> joinClub(@PathVariable Long clubId, @PathVariable Long userId) {
-            clubService.addMemberToClub(clubId, userId);
-            return ResponseEntity.ok("User joined the club successfully!");
-        }
+    @DeleteMapping("/{clubId}/members/{userId}")
+    public ResponseEntity<String> removeMemberFromClub(@PathVariable Long clubId, @PathVariable Long userId) {
+        clubService.removeMemberFromClub(clubId, userId);
+        return ResponseEntity.ok("Member removed from club successfully!");
     }
 
-
+}

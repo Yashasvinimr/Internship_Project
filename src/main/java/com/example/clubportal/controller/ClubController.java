@@ -60,10 +60,5 @@ public class ClubController {
         return ResponseEntity.ok("Club deleted successfully!");
     }
 
-    @DeleteMapping("/{clubId}/members/{userId}")
-    public ResponseEntity<String> removeMemberFromClub(@PathVariable Long clubId, @PathVariable Long userId) {
-        clubService.removeMemberFromClub(clubId, userId);
-        return ResponseEntity.ok("Member removed from club successfully!");
-    }
 
 }

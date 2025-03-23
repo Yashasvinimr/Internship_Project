@@ -24,13 +24,8 @@ public class EventController {
         return ResponseEntity.ok(eventService.getExploreEvents());
     }
 
-    @GetMapping("/foryou/{userId}")
-    public ResponseEntity<List<Event>> getForYouEvents(@PathVariable Long userId) {
-        return ResponseEntity.ok(eventService.getForYouEvents(userId));
-    }
-
-    @PostMapping
-    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-        return ResponseEntity.ok(eventService.saveEvent(event));
+    @PostMapping("/{clubId}")
+    public ResponseEntity<Event> createEvent(@PathVariable Long clubId, @RequestBody Event event) {
+        return ResponseEntity.ok(eventService.createEvent(clubId, event));
     }
 }

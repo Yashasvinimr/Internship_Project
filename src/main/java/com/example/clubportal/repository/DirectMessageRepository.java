@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface DirectMessageRepository extends JpaRepository<DirectMessage, Long> {
-    List<DirectMessage> findByReceiverId(Long receiverId);
+    List<DirectMessage> findByReceiverIdAndIsDeletedFalse(Long receiverId);
+
+    List<DirectMessage> findBySenderIdAndReceiverIdAndIsDeletedFalseOrderByTimestamp(Long senderId, Long receiverId);
 }

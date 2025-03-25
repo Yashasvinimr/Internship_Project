@@ -1,10 +1,7 @@
 package com.example.clubportal.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -20,13 +17,18 @@ public class DirectMessage {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "sender_id")
+    @JoinColumn(name = "sender_id", nullable = false)
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "receiver_id")
+    @JoinColumn(name = "receiver_id", nullable = false)
     private User receiver;
 
     private String message;
-    private LocalDateTime timestamp;
+
+    private LocalDateTime timestamp = LocalDateTime.now(); // Default time when sent
+
+    private boolean isRead = false; // New: Read/unread status
+
+    private boolean isDeleted = false; // New: Soft delete
 }

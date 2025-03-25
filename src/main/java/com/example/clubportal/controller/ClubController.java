@@ -2,6 +2,7 @@ package com.example.clubportal.controller;
 
 import com.example.clubportal.dto.ClubDTO;
 import com.example.clubportal.entity.Club;
+import com.example.clubportal.entity.User;
 import com.example.clubportal.service.ClubService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +60,10 @@ public class ClubController {
         clubService.deleteClub(id);
         return ResponseEntity.ok("Club deleted successfully!");
     }
+//    @GetMapping("/{clubId}/members")
+//    public ResponseEntity<Set<User>> getClubMembers(@PathVariable Long clubId) {
+//        return ResponseEntity.ok(clubService.getClubMembers(clubId));
+//    }
 
 
 }

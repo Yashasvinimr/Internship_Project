@@ -1,11 +1,13 @@
 package com.example.clubportal.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Data
 @Getter
 @Setter
 public class PostRequest {
@@ -13,6 +15,6 @@ public class PostRequest {
     private Long clubId; // Nullable for public posts
     private String caption;
     private List<String> tags;
-    private boolean isPublic;
+    private boolean publicPost; // Avoids "is" confusion
     private String imageUrl; // URL or upload logic later
 }

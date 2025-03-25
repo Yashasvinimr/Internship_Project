@@ -34,4 +34,12 @@ public class Club {
     @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<ClubMember> coordinators;
+
+    @ManyToMany
+    @JoinTable(
+            name = "club_members",
+            joinColumns = @JoinColumn(name = "club_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> members;
 }

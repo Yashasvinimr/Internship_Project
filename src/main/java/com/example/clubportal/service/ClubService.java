@@ -11,6 +11,7 @@ import com.example.clubportal.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
@@ -88,5 +89,13 @@ public class ClubService {
 
         clubMemberRepository.delete(clubMember);
     }
+
+    public Set<User> getClubMembers(Long clubId) {
+        Club club = clubRepository.findById(clubId)
+                .orElseThrow(() -> new RuntimeException("Club not found"));
+        return club.getMembers(); // Assuming `Club` entity has a `Set<User> members`
+    }
+
+
 
 }

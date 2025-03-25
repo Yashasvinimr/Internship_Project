@@ -10,7 +10,10 @@ import com.example.clubportal.repository.ClubRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -24,8 +27,9 @@ public class PostService {
     @Autowired
     private ClubRepository clubRepository;
 
-
-    public Post createPost(PostRequest postRequest) {
+//    @Autowired
+//    private ContentModerationService contentModerationService;
+    public Post createPost(PostRequest postRequest) throws IOException {
         User user = userRepository.findById(postRequest.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -37,16 +41,54 @@ public class PostService {
         post.setUser(user);
         post.setClub(club);
         post.setCaption(postRequest.getCaption());
-        post.setTags(postRequest.getTags());
-        post.setPublic(postRequest.isPublic());
-        post.setImageUrl(postRequest.getImageUrl()); // Handle file upload separately
+        //post.setTags((Set<String>) postRequest.getTags());
 
+        post.setTags(new HashSet<>(postRequest.getTags())); // Convert List to Set
+
+        post.setPublicPost(postRequest.isPublicPost());
+        post.setImageUrl(postRequest.getImageUrl()); // Handle file upload separately
+        System.out.println("Post isPublic before saving: " + post.isPublicPost());
+//        if (!contentModerationService.isContentAppropriate(post.getCaption())) {
+//            throw new IllegalArgumentException("Inappropriate content detected in caption!");
+//        }
         return postRepository.save(post);
     }
+    public void toggleLike(Long postId, Long userId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
+        if (post.getLikedByUsers().contains(user)) {
+            post.getLikedByUsers().remove(user); // Unlike
+        } else {
+            post.getLikedByUsers().add(user); // Like
+        }
+
+        postRepository.save(post);
+    }
+
+    public boolean likePost(Long postId, Long userId) {
+        Optional<Post> optionalPost = postRepository.findById(postId);
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalPost.isPresent() && optionalUser.isPresent()) {
+            Post post = optionalPost.get();
+            User user = optionalUser.get();
+
+            if (post.getLikedByUsers().contains(user)) {
+                post.getLikedByUsers().remove(user); // Unlike if already liked
+            } else {
+                post.getLikedByUsers().add(user); // Like the post
+            }
+            postRepository.save(post);
+            return true;
+        }
+        return false;
+    }
 
     public List<Post> getAllPublicPosts() {
-        return postRepository.findByIsPublicTrue();
+        return postRepository.findByPublicPostTrue();
     }
 
     public List<Post> getClubPosts(Long clubId) {
@@ -56,4 +98,10 @@ public class PostService {
     public List<Post> getPostsByTag(String tag) {
         return postRepository.findByTagsContaining(tag);
     }
+    public Set<User> getLikedUsers(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+        return post.getLikedByUsers(); // Returns the list of users who liked the post
+    }
+
 }

@@ -9,6 +9,7 @@ com\example\clubportal\entity\Club.class
 com\example\clubportal\repository\DirectMessageRepository.class
 com\example\clubportal\entity\User.class
 com\example\clubportal\entity\ClubMember.class
+com\example\clubportal\dto\DirectMessageRequest.class
 com\example\clubportal\config\SecurityConfig.class
 com\example\clubportal\entity\Post.class
 com\example\clubportal\repository\CommentRepository.class
@@ -30,6 +31,7 @@ com\example\clubportal\entity\DirectMessage.class
 com\example\clubportal\repository\PostRepository.class
 com\example\clubportal\exceptions\InvalidPhoneNumberException.class
 com\example\clubportal\repository\MembershipRepository.class
+com\example\clubportal\dto\CommentRequest.class
 com\example\clubportal\ClubportalApplication.class
 com\example\clubportal\service\ClubService.class
 com\example\clubportal\service\UserService.class
@@ -37,6 +39,7 @@ com\example\clubportal\exceptions\InvalidCredentialsException.class
 com\example\clubportal\service\CommentService.class
 com\example\clubportal\entity\EventRegistration.class
 com\example\clubportal\entity\ClubMember$Status.class
+com\example\clubportal\dto\PostRequest.class
 com\example\clubportal\dto\LoginRequest.class
 com\example\clubportal\entity\EventRegistration$PaymentStatus.class
 com\example\clubportal\repository\UserRepository.class

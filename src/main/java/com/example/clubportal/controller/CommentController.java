@@ -3,7 +3,7 @@ package com.example.clubportal.controller;
 import com.example.clubportal.dto.CommentRequest;
 import com.example.clubportal.entity.Comment;
 import com.example.clubportal.service.CommentService;
-import com.example.clubportal.service.PerspectiveService;
+//import com.example.clubportal.service.PerspectiveService;
 import com.example.clubportal.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +21,11 @@ public class CommentController {
     @Autowired
     private PostService postService;
 
-    private final PerspectiveService perspectiveService;
-
-    public CommentController(PerspectiveService perspectiveService) {
-        this.perspectiveService = perspectiveService;
-    }
+//    private final PerspectiveService perspectiveService;
+//
+//    public CommentController(PerspectiveService perspectiveService) {
+//        this.perspectiveService = perspectiveService;
+//    }
 
     /**
      * Add a comment to a specific post.
@@ -37,10 +37,10 @@ public class CommentController {
         }
 
         // Check for profanity
-        boolean hasProfanity = perspectiveService.containsProfanity(commentRequest.getContent());
-        if (hasProfanity) {
-            return ResponseEntity.badRequest().body("Your comment contains inappropriate content.");
-        }
+//        boolean hasProfanity = perspectiveService.containsProfanity(commentRequest.getContent());
+//        if (hasProfanity) {
+//            return ResponseEntity.badRequest().body("Your comment contains inappropriate content.");
+//        }
 
         commentService.createComment(commentRequest);
         return ResponseEntity.ok("Comment added successfully!");

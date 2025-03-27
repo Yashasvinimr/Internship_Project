@@ -28,8 +28,8 @@ public class CommentService {
     //vate ContentModerationService contentModerationService;
 
 
-    @Autowired
-    private PerspectiveService perspectiveService; // Ensure this is injected
+//    @Autowired
+//    private PerspectiveService perspectiveService; // Ensure this is injected
 
     public Comment createComment(CommentRequest commentRequest) throws IOException {
         User user = userRepository.findById(commentRequest.getUserId())
@@ -38,9 +38,9 @@ public class CommentService {
         Post post = postRepository.findById(commentRequest.getPostId())
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
-        if (perspectiveService.containsProfanity(commentRequest.getContent())) {
-            throw new IllegalArgumentException("Inappropriate comment detected!");
-        }
+//        if (perspectiveService.containsProfanity(commentRequest.getContent())) {
+//            throw new IllegalArgumentException("Inappropriate comment detected!");
+//        }
 
         Comment comment = new Comment();
         comment.setUser(user);

@@ -55,3 +55,4 @@ com\example\clubportal\repository\EventRegistrationRepository.class
 com\example\clubportal\service\PostService.class
 com\example\clubportal\entity\Payment.class
 com\example\clubportal\service\DirectMessageService.class
+com\example\clubportal\service\PerspectiveService.class

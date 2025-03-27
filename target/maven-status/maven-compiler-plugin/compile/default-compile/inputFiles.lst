@@ -18,12 +18,12 @@ C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubpor
 C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubportal\entity\Membership.java
 C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubportal\repository\PaymentRepository.java
 C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubportal\dto\DirectMessageRequest.java
-C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubportal\service\ContentModerationService.java
 C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubportal\config\SecurityConfig.java
 C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubportal\dto\CommentRequest.java
 C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubportal\service\EventRegistrationService.java
 C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubportal\repository\EventRegistrationRepository.java
 C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubportal\entity\Post.java
+C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubportal\service\PerspectiveService.java
 C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubportal\repository\UserRepository.java
 C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubportal\service\PaymentService.java
 C:\Users\yasha\Downloads\clubportal\clubportal\src\main\java\com\example\clubportal\entity\ClubMember.java

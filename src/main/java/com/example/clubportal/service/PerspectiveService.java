@@ -12,8 +12,7 @@
 //
 //@Service
 //public class PerspectiveService {
-//    static String apiKey = "AIzaSyCcA-WBlYHdRkOY-Fze-uLWtP48-nrwFeg";
-//    private static final String API_URL = "https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key="+apiKey;
+//
 //    private final RestTemplate restTemplate = new RestTemplate();
 //
 //    public boolean containsProfanity(String text) {
